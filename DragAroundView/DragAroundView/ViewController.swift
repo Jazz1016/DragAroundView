@@ -13,8 +13,16 @@ class ViewController: UIViewController {
         let view = UIView(frame: CGRect(x: 0, y: 0, width: 200, height: 200))
         view.backgroundColor = .link
         view.isUserInteractionEnabled = true
+        view.layer.zPosition = 5
         
         return view
+    }()
+    
+    private let topView: UIView = {
+        let topView  = UIView(frame: CGRect(x: 0.5, y: 0.5, width: 1000, height: 1000))
+        topView.backgroundColor = .gray
+        
+        return topView
     }()
     
     private var isDragging: Bool = false
@@ -23,16 +31,16 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         view.addSubview(myView)
+        view.addSubview(topView)
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
+        topView.anchor(top: self.view.topAnchor, bottom: nil, leading: self.view.leadingAnchor, trailing: self.view.trailingAnchor, paddingTop: 8, paddingBottom: 8, paddingLeft: 8, paddingRight: 8, width: nil, height: 500)
         myView.center = view.center
     }
-    
     var oldX: CGFloat = 0
     var oldY: CGFloat = 0
-
 }
 
 extension ViewController {
